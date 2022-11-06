@@ -31,9 +31,6 @@ class HelloIncomingCallServletTest {
     @Test
     public void should_get_digit_when_call_get() throws IOException, ServletException {
 
-        //when(request.getParameter("fn")).thenReturn("Vinod");
-        //when(request.getParameter("ln")).thenReturn("Kashyap");
-
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
 
@@ -42,7 +39,7 @@ class HelloIncomingCallServletTest {
         HelloIncomingCallServlet myServlet =new HelloIncomingCallServlet();
         myServlet.doGet(request, response);
         String result = sw.getBuffer().toString().trim();
-        assertEquals(result, new String("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Play digits=\"wwww5\"/></Response>"));
+        assertEquals(result, new String("<?xml version=\"1.0\" encoding=\"UTF-8\"?><Response><Play digits=\"wwww5\"/><Hangup/></Response>"));
 
     }
 }
