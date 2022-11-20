@@ -67,13 +67,12 @@
 			<version>5.9.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-spring-apps-maven-plugin -->
+		<!-- https://mvnrepository.com/artifact/com.microsoft.azure/azure-spring-cloud-maven-plugin -->
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
-			<artifactId>azure-spring-apps-maven-plugin</artifactId>
-			<version>1.13.0</version>
+			<artifactId>azure-spring-cloud-maven-plugin</artifactId>
+			<version>1.11.0</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
