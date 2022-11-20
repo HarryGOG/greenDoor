@@ -1,14 +1,18 @@
 name: AzureSpringCloud
 on: push
+env:
+  ASC_PACKAGE_PATH: ${{ github.workspace }}
+  AZURE_SUBSCRIPTION: 3a8a17aa-dcaa-4d17-8a70-e8f226bdf6a9
 
 jobs:
-  build-and-deploy:
+  deploy_to_production:
     runs-on: ubuntu-latest
+    name: deploy to production with artifact
     steps:
+      - name: Checkout GitHub Action
+        uses: actions/checkout@v2
 
-      - uses: actions/checkout@main
-
-      - name: Set up Java 19
+      - name: Set up JDK 19
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
@@ -16,15 +20,19 @@ jobs:
 
       - name: maven build, clean
         run: |
-          mvn clean package 
+          mvn clean package
 
-      # Maven plugin can cosume this authentication method automatically
-      - name: Azure Login
+      - name: Login via Azure CLI
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Maven deploy, make sure you have correct configurations in your pom.xml
-      - name: deploy to Azure Spring Apps using Maven
-        run: |
-          mvn azure-spring-apps:deploy
+      - name: deploy to production with artifact
+        uses: azure/spring-cloud-deploy@v1
+        with:
+          azure-subscription: ${{ env.AZURE_SUBSCRIPTION }}
+          action: Deploy
+          service-name: green-door-service
+          app-name: green-door-app
+          use-staging-deployment: false
+          package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
