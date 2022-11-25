@@ -4,7 +4,6 @@ env:
   ASC_PACKAGE_PATH: ${{ github.workspace }}
   AZURE_SUBSCRIPTION: 3a8a17aa-dcaa-4d17-8a70-e8f226bdf6a9
 
-
 jobs:
   deploy_to_production:
     runs-on: ubuntu-latest
